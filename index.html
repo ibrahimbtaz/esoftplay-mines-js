@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Title Page</title>
+
+		<!-- Bootstrap CSS -->
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<style type="text/css">
+			body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(8, 40px);
+        gap: 2px;
+      }
+
+      .grid-item {
+        width: 40px;
+        height: 40px;
+        background-color: black;
+        cursor: pointer;
+      }
+
+			.when-clicked {
+				background-color: white;
+			}
+			
+			.bomb-marked {
+				background-color: orange;
+			}
+
+      .bomb {
+        background-color: red;
+      }
+
+		</style>
+	</head>
+	<body>
+		<h1 class="text-center">Mines</h1>
+		<div class="grid-container" id="grid">
+			<!-- Kotak 8x8 akan dibuat di sini -->
+		</div>
+
+		<!-- jQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<!-- Bootstrap JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function (){
+				const a = $("#grid");
+				const j = 8 * 8; // Jumlah row dan col
+				let b = 8; // Jumlah bom
+				let c = []; // Menyimpan lokasi bom secara acak
+
+				function createGrid() {
+					a.empty();
+
+					c = [];
+
+					for (let i = 0; i < j; i++) {
+						 const ab = $("<div></div>").addClass("grid-item");
+						 ab.click(function () {
+							 $(this).addClass("when-clicked");
+						 });
+						 a.append(ab);
+					}
+				}
+
+				createGrid();
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mines</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(8, 40px);
+        gap: 2px;
+      }
+
+      .grid-item {
+        width: 40px;
+        height: 40px;
+        background-color: black;
+        cursor: pointer;
+      }
+
+      .bomb {
+        background-color: red;
+      }
+
+      .bomb-orange {
+        background-color: orange;
+      }
+/* 
+			.new_game {
+				margin-top: 20px;
+			} */
+    </style>
+  </head>
+  <body>
+		<p class="hp" id="hp"></p>
+    <h1 class="text-center">Percobaan 4</h1>
+    <div class="grid-container" id="grid"></div>
+
+    <button type="button" class="my-4 btn btn-danger new_game">Reset</button>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+			$(document).ready(function () {
+				const a = $('#grid'); //menentukan grid yang akan menampung board
+        let b = 8; // Jumlah bom
+        let c = []; // Menyimpan lokasi bom secara acak
+				let hp = []; // Menyimpan nyawa
+				
+				// (function ($) {
+				// 	$.fn.myfunction = function () {
+				// 		this.click(function () {
+				// 			alert('hello world');
+				// 		});
+				// 		// alert('hello world');
+				// 		return this;
+				// 	};
+				// })(jQuery);
+
+				// myfunction();
+				
+				// $('.new_game').myfunction();
+
+				function createGrid() {
+          // Reset the grid
+          a.empty();
+
+          // Reset the bomb locations
+          c = [];
+
+          // Generate new bomb locations
+          while (c.length < b) {
+            const r = Math.floor(Math.random() * 64); // 8x8 grid
+            if (!c.includes(r)) {
+              c.push(r);
+            }
+          }
+
+
+					let hp = 5;
+					$('#hp').text(hp);
+
+          // Create the grid
+          for (let i = 0; i < 8; i++) {
+            for (let j = 0; j < 8; j++) {
+              const ab = $('<div></div>').addClass('grid-item');
+
+              if (c.includes(i * 8 + j)) {
+                ab.addClass('bomb-orange');
+              }
+
+              // Menambahkan event listener untuk mengubah warna menjadi putih atau merah
+              ab.click(function () {
+                if (c.includes(i * 8 + j)) {
+                  if ($(this).hasClass('bomb-orange')) {
+												hp--;	
+                    $(this)
+                      .removeClass('bomb-orange')
+                      .addClass('bomb')
+                      .delay(10)
+                      .queue(function (next) {
+                        alert('Boom! Kamu menemukan bom!');
+                        // next();
+                      });
+										if(hp==0){
+											alert('Game Over');
+											createGrid();
+											hp=5;
+										}
+                  }
+									$('#hp').text(hp);
+                } else {
+                  $(this).css('background-color', 'white');
+                }
+              });
+              a.append(ab);
+            }
+          }
+        }
+	
+        // Create the grid on page load
+				createGrid();			
+        // Add click event listener to reset button
+        $('button').click(createGrid);
+
+      });
+    </script>
+  </body>
+</html>

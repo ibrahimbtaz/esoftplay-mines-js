@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        .cell {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Minesweeper</h1>
+    <div id="board"></div>
+		<div class="hei"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Inisialisasi papan
+            var board = [];
+            var bombs = [];
+            var gridSize = 8;
+            var bombCount = 4;
+
+            function initializeBoard() {
+                for (var i = 0; i < gridSize; i++) {
+                    var row = [];
+                    for (var j = 0; j < gridSize; j++) {
+                        var cell = $("<div class='cell'></div>");
+                        cell.data("row", i);
+                        cell.data("col", j);
+                        board.push(cell);
+                        $("#board").append(cell);
+                    }
+                }
+
+                // Randomly place bombs
+                while (bombs.length < bombCount) {
+                    var rand = Math.floor(Math.random() * (gridSize * gridSize));
+                    if (bombs.indexOf(rand) === -1) {
+                        bombs.push(rand);
+                    }
+                }
+
+                // Handle click events
+                $(".cell").click(function() {
+                    var row = $(this).data("row");
+                    var col = $(this).data("col");
+                    var cellIndex = row * gridSize + col;
+
+                    if (bombs.indexOf(cellIndex) !== -1) {
+                        // Bomb clicked
+                        $(this).css("background-color", "red");
+                        alert("Kamu kena bom!");
+                    } else {
+                        // Safe cell clicked
+                        $(this).css("background-color", "white");
+                    }
+                });
+            }
+
+            initializeBoard();
+        });
+    </script>
+</body>
+</html>

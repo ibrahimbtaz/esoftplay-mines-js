@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mines</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(8, 40px);
+        gap: 2px;
+      }
+
+      .grid-item {
+        width: 40px;
+        height: 40px;
+        background-color: black;
+        cursor: pointer;
+      }
+
+      .bomb {
+        background-color: red;
+      }
+
+      .bomb-orange {
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Percobaan 2</h1>
+    <div class="grid-container" id="grid">
+      <!-- Kotak 8x8 akan dibuat di sini -->
+    </div>
+
+    <!-- <button type="button" class="btn btn-default">Reset</button> -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Membuat kotak 8x8
+        const a = $('#grid');
+        const b = 8; // Jumlah bom
+
+        // Menyimpan lokasi bom secara acak
+        const c = []; /* kenapa ini di jadikan const array? */
+        while (c.length < b) {
+          const r = Math.floor(Math.random() * 64); // 8x8 grid
+          if (!c.includes(r)) {
+            c.push(r);
+          }
+        }
+
+        for (let i = 0; i < 8; i++) {
+          for (let j = 0; j < 8; j++) {
+            const ab = $('<div></div>').addClass('grid-item');
+
+            // Menambahkan event listener untuk mengubah warna menjadi putih atau merah
+            // ab.on('click', function () {
+            //   if (c.includes(i * 8 + j)) {
+            //     if (!$(this).hasClass('bomb-orange')) {
+            //       $(this).removeClass('bomb-orange').addClass('bomb');
+            //     } else {
+            //       $(this).addClass('bomb-orange');
+            //     }
+            //   } else {
+            //     $(this).css('background-color', 'white');
+            //   }
+            // });
+
+            if (c.includes(i * 8 + j)) {
+              ab.addClass('bomb-orange');
+            }
+
+            // Menambahkan event listener untuk mengubah warna menjadi putih atau merah
+            ab.click(function () {
+              if (c.includes(i * 8 + j)) {
+                if ($(this).hasClass('bomb-orange')) {
+                  $(this).removeClass('bomb-orange').addClass('bomb');
+                  // setTimeout(() => {
+                  //   if ($(this).hasClass('bomb')) {
+                  //     alert('Boom! Kamu terkena bom!');
+                  //   }
+                  // }, 10);
+                }
+              } else {
+                $(this).css('background-color', 'white');
+              }
+            });
+            a.append(ab);
+          }
+        }
+
+        //buatkan code button untuk mereset location bomb
+
+        // $('button').click(function () {
+        // 	const r = Math.floor(Math.random() * 64); // 8x8 grid
+        //   if (!c.includes(r)) {
+        //     c.push(r);
+        //   }
+        // });
+      });
+    </script>
+
+
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mines</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(8, 40px);
+        gap: 2px;
+      }
+
+      .grid-item {
+        width: 40px;
+        height: 40px;
+        background-color: black;
+        cursor: pointer;
+      }
+
+      .bomb {
+        background-color: red;
+      }
+
+      .bomb-orange {
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Percobaan 3</h1>
+    <div class="grid-container" id="grid">
+      <!-- Kotak 8x8 akan dibuat di sini -->
+    </div>
+
+    <button type="button" class="btn btn-success">Reset</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Membuat kotak 8x8
+        const a = $('#grid');
+        let b = 8; // Jumlah bom
+        let c = []; // Menyimpan lokasi bom secara acak
+
+        function createGrid() {
+          // Reset the grid
+          a.empty();
+
+          // Reset the bomb locations
+          c = [];
+
+          // Generate new bomb locations
+          while (c.length < b) {
+            const r = Math.floor(Math.random() * 64); // 8x8 grid
+            if (!c.includes(r)) {
+              c.push(r);
+            }
+          }
+
+          // Create the grid
+          for (let i = 0; i < 8; i++) {
+            for (let j = 0; j < 8; j++) {
+              const ab = $('<div></div>').addClass('grid-item');
+
+              if (c.includes(i * 8 + j)) {
+                ab.addClass('bomb-orange');
+              }
+
+              // Menambahkan event listener untuk mengubah warna menjadi putih atau merah
+              ab.click(function () {
+                if (c.includes(i * 8 + j)) {
+                  if ($(this).hasClass('bomb-orange')) {
+                    $(this)
+                      .removeClass('bomb-orange')
+                      .addClass('bomb')
+                      .delay(10)
+                      .queue(function (next) {
+                        alert('Boom! Kamu menemukan bom!');
+                        // next();
+                      });
+                  }
+                } else {
+                  $(this).css('background-color', 'white');
+                }
+              });
+              a.append(ab);
+            }
+          }
+        }
+
+        // Create the grid on page load
+        createGrid();
+
+        // Add click event listener to reset button
+        $('button').click(createGrid);
+      });
+    </script>
+  </body>
+</html>
