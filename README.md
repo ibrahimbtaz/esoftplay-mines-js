@@ -1,0 +1,1 @@
+# esoftplay-mines-js
