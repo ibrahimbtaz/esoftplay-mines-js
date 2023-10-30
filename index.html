@@ -1,23 +1,25 @@
-
 <!DOCTYPE html>
 <html lang="">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Title Page</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Title Page</title>
 
-		<!-- Bootstrap CSS -->
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
-		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
-			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
-		<style type="text/css">
-			body {
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+      body {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -39,53 +41,104 @@
         cursor: pointer;
       }
 
-			.when-clicked {
-				background-color: white;
-			}
-			
-			.bomb-marked {
-				background-color: orange;
-			}
+      .when-clicked {
+        background-color: white;
+      }
+
+      .bomb-marked {
+        background-color: orange;
+      }
 
       .bomb {
         background-color: red;
       }
 
-		</style>
-	</head>
-	<body>
-		<h1 class="text-center">Mines</h1>
-		<div class="grid-container" id="grid">
-			<!-- Kotak 8x8 akan dibuat di sini -->
-		</div>
+      .new_game {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="text-center">Mines</h1>
+    <div class="grid-container" id="grid">
+      <!-- Kotak 8x8 akan dibuat di sini -->
+    </div>
+    <button type="button" class="btn btn-danger new_game">
+      Reset = <span id="hp"></span>
+    </button>
 
-		<!-- jQuery -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<!-- Bootstrap JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function (){
-				const a = $("#grid");
-				const j = 8 * 8; // Jumlah row dan col
-				let b = 8; // Jumlah bom
-				let c = []; // Menyimpan lokasi bom secara acak
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        const a = $('#grid');
+        const j = 8 * 8; // Jumlah row dan col
+        let b = 10; // Jumlah bom
+        let c = []; // Menyimpan lokasi bom secara acak
+        // let hp = []; // Menyimpan nyawa
 
-				function createGrid() {
-					a.empty();
+        let hp = 3;
+        $('#hp').text(hp);
 
-					c = [];
+        function createGrid() {
+          a.empty();
+          c = [];
+          while (c.length < b) {
+            const r = Math.floor(Math.random() * 64); // 8x8 grid
+            if (!c.includes(r)) {
+              c.push(r);
+            }
+          }
+          // console.log(...c);
 
-					for (let i = 0; i < j; i++) {
-						 const ab = $("<div></div>").addClass("grid-item");
-						 ab.click(function () {
-							 $(this).addClass("when-clicked");
-						 });
-						 a.append(ab);
-					}
-				}
+          for (let i = 0; i < j; i++) {
+            const ab = $('<div></div>').addClass('grid-item');
 
-				createGrid();
-			});
-		</script>
-	</body>
+            // if (c.includes(i)) {
+            //   ab.addClass('bomb-marked'); //jika kotak memiliki bom makan akan diberi mark
+            //   // console.log(i)
+            // }
+
+            ab.click(function () {
+              if (c.includes(i)) {
+                if (
+                  $(this).hasClass('grid-item') ||
+                  $(this).hasClass('bomb-marked')
+                ) {
+                  hp--;
+                  $('#hp').text(hp);
+                  $(this)
+                    .removeClass('grid-item bomb-marked')
+                    .addClass('bomb')
+                    .delay(10)
+                    .queue(function (next) {
+                      // alert('Boom! Kamu menemukan bom!');
+                      if (hp === 0) {
+                        alert('Game Over');
+                        createGrid(); // Memulai permainan baru
+                        hp = 3; // Reset nyawa
+                        $('#hp').text(hp); // Mengupdate tampilan nyawa
+                      }
+                    }); //jika kotak memiliki bom maka akan diberi warna merah setelah di klik dan akan menampilkan alert
+                } 
+              } else {
+                $(this).addClass('when-clicked'); // Menambahkan class "when-clicked" untuk penanda ketika kotak di klik
+              }
+            });
+            a.append(ab);
+          }
+        }
+
+        // (function ($) {
+        // 	// Isi fungsi di sini
+        // })(jQuery);
+
+        createGrid();
+
+        $('button').click(createGrid);
+      });
+    </script>
+  </body>
 </html>
