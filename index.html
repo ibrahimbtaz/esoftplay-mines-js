@@ -96,10 +96,10 @@
           for (let i = 0; i < j; i++) {
             const ab = $('<div></div>').addClass('grid-item');
 
-            // if (c.includes(i)) {
-            //   ab.addClass('bomb-marked'); //jika kotak memiliki bom makan akan diberi mark
-            //   // console.log(i)
-            // }
+            if (c.includes(i)) {
+              ab.addClass('bomb-marked'); //jika kotak memiliki bom makan akan diberi mark
+              // console.log(i)
+            }
 
             ab.click(function () {
               if (c.includes(i)) {
@@ -116,13 +116,15 @@
                     .queue(function (next) {
                       // alert('Boom! Kamu menemukan bom!');
                       if (hp === 0) {
-                        alert('Game Over');
-                        createGrid(); // Memulai permainan baru
-                        hp = 3; // Reset nyawa
-                        $('#hp').text(hp); // Mengupdate tampilan nyawa
+                        setTimeout(() => {
+                          alert('Game Over');
+													createGrid(); // Memulai permainan baru
+													hp = 3; // Reset nyawa
+													$('#hp').text(hp); // Mengupdate tampilan nyawa
+                        }, 10);
                       }
                     }); //jika kotak memiliki bom maka akan diberi warna merah setelah di klik dan akan menampilkan alert
-                } 
+                }
               } else {
                 $(this).addClass('when-clicked'); // Menambahkan class "when-clicked" untuk penanda ketika kotak di klik
               }
