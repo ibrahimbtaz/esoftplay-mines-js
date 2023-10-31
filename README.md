@@ -1,2 +1,2 @@
 # esoftplay-mines-js
-# run in index.html
+run in index.html
