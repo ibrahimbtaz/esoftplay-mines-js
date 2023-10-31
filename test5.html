@@ -91,14 +91,14 @@
 
         let sb = false;
 
-        function create_grid() {
+        const create_grid = () => {
           for (let i = 0; i < 8 * 8; i++) {
             ab = $('<div></div>').addClass('grid-item');
             a.append(ab);
           }
-        }
+        };
 
-        function new_board() {
+        const new_board = () => {
           a.empty();
           c = [];
           while (c.length < b) {
@@ -113,9 +113,9 @@
             show_bomb();
             sb = !sb;
           }
-        }
+        };
 
-        function handle_click() {
+        const handle_click = function () {
           const i = $(this).index();
           console.log(i);
           if (c.includes(i)) {
@@ -144,9 +144,9 @@
           } else {
             $(this).addClass('when-clicked');
           }
-        }
+        };
 
-        function show_bomb() {
+        const show_bomb = () => {
           a.children('.grid-item').each(function () {
             const i = $(this).index();
             if (c.includes(i)) {
@@ -155,7 +155,7 @@
           });
           sb = !sb;
           console.log(sb);
-        }
+        };
 
         new_board();
 

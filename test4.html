@@ -49,14 +49,14 @@
       .bomb-orange {
         background-color: orange;
       }
-/* 
+      /* 
 			.new_game {
 				margin-top: 20px;
 			} */
     </style>
   </head>
   <body>
-		<p class="hp" id="hp"></p>
+    <p class="hp" id="hp"></p>
     <h1 class="text-center">Percobaan 4</h1>
     <div class="grid-container" id="grid"></div>
 
@@ -68,27 +68,27 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script>
-			$(document).ready(function () {
-				const a = $('#grid'); //menentukan grid yang akan menampung board
+      $(document).ready(function () {
+        const a = $('#grid'); //menentukan grid yang akan menampung board
         let b = 8; // Jumlah bom
         let c = []; // Menyimpan lokasi bom secara acak
-				let hp = []; // Menyimpan nyawa
-				
-				// (function ($) {
-				// 	$.fn.myfunction = function () {
-				// 		this.click(function () {
-				// 			alert('hello world');
-				// 		});
-				// 		// alert('hello world');
-				// 		return this;
-				// 	};
-				// })(jQuery);
+        let hp = []; // Menyimpan nyawa
 
-				// myfunction();
-				
-				// $('.new_game').myfunction();
+        // (function ($) {
+        // 	$.fn.myfunction = function () {
+        // 		this.click(function () {
+        // 			alert('hello world');
+        // 		});
+        // 		// alert('hello world');
+        // 		return this;
+        // 	};
+        // })(jQuery);
 
-				function createGrid() {
+        // myfunction();
+
+        // $('.new_game').myfunction();
+
+        function createGrid() {
           // Reset the grid
           a.empty();
 
@@ -103,9 +103,8 @@
             }
           }
 
-
-					let hp = 5;
-					$('#hp').text(hp);
+          let hp = 5;
+          $('#hp').text(hp);
 
           // Create the grid
           for (let i = 0; i < 8; i++) {
@@ -116,40 +115,44 @@
                 ab.addClass('bomb-orange');
               }
 
-              // Menambahkan event listener untuk mengubah warna menjadi putih atau merah
-              ab.click(function () {
-                if (c.includes(i * 8 + j)) {
-                  if ($(this).hasClass('bomb-orange')) {
-												hp--;	
-                    $(this)
-                      .removeClass('bomb-orange')
-                      .addClass('bomb')
-                      .delay(10)
-                      .queue(function (next) {
-                        alert('Boom! Kamu menemukan bom!');
-                        // next();
-                      });
-										if(hp==0){
-											alert('Game Over');
-											createGrid();
-											hp=5;
-										}
-                  }
-									$('#hp').text(hp);
-                } else {
-                  $(this).css('background-color', 'white');
-                }
-              });
-              a.append(ab);
+							a.append(ab);
             }
           }
         }
-	
-        // Create the grid on page load
-				createGrid();			
-        // Add click event listener to reset button
-        $('button').click(createGrid);
+				
+				// Menambahkan event listener untuk mengubah warna menjadi putih atau merah
+        function handleGridItemClick(ab, i, j, c, hp) {
+          ab.click(function () {
+            if (c.includes(i * 8 + j)) {
+              if ($(this).hasClass('bomb-orange')) {
+                hp--;
+                $(this)
+                  .removeClass('bomb-orange')
+                  .addClass('bomb')
+                  .delay(10)
+                  .queue(function (next) {
+                    alert('Boom! Kamu menemukan bom!');
+                    // next();
+                  });
+                if (hp == 0) {
+                  alert('Game Over');
+                  new_board();
+                  hp = 5;
+                }
+              }
+              $('#hp').text(hp);
+            } else {
+              $(this).css('background-color', 'white');
+            }
+          });
+        }
 
+        // Create the grid on page load
+        createGrid();
+        // Add click event listener to reset button
+        $('#grid').on('click', '.grid-item', handleGridItemClick);
+
+        $('button').click(createGrid);
       });
     </script>
   </body>
