@@ -33,46 +33,46 @@
 	}
 	console.log(...c);
 
-	for (let i = 0; i < 8*8; i++) {
+	for (let i = 0; i < 8 * 8; i++) {
 		// const ab = 0;
 		if (c.includes(i)) {
 			console.log(i);
 		}
 	}
 
-	const set= new Set (i) ;
-	console.log(set);
+	// const set = new Set(i);
+	// console.log(set);
 
-	
 
-	 ab.click(function () {
-	 	if (c.includes(i)) {
-	 		if (
-	 			$(this).hasClass('grid-item') ||
-	 			$(this).hasClass('bomb-marked')
-	 		) {
-	 			hp--;
-	 			$('#hp').text(hp);
-	 			$(this)
-	 				.removeClass('grid-item bomb-marked')
-	 				.addClass('bomb')
-	 				.delay(10)
-	 				.queue(function (next) {
-	 					// alert('Boom! Kamu menemukan bom!');
-	 					if (hp === 0) {
-	 						setTimeout(() => {
-	 							alert('Game Over');
-	 							createGrid(); // Memulai permainan baru
-	 							hp = 3; // Reset nyawa
-	 							$('#hp').text(hp); // Mengupdate tampilan nyawa
-	 						}, 10);
-	 					}
-	 				}); //jika kotak memiliki bom maka akan diberi warna merah setelah di klik dan akan menampilkan alert
-	 		}
-	 	} else {
-	 		$(this).addClass('when-clicked'); // Menambahkan class "when-clicked" untuk penanda ketika kotak di klik
-	 	}
-	 });
+
+	// ab.click(function () {
+	// 	if (c.includes(i)) {
+	// 		if (
+	// 			$(this).hasClass('grid-item') ||
+	// 			$(this).hasClass('bomb-marked')
+	// 		) {
+	// 			hp--;
+	// 			$('#hp').text(hp);
+	// 			$(this)
+	// 				.removeClass('grid-item bomb-marked')
+	// 				.addClass('bomb')
+	// 				.delay(10)
+	// 				.queue(function (next) {
+	// 					// alert('Boom! Kamu menemukan bom!');
+	// 					if (hp === 0) {
+	// 						setTimeout(() => {
+	// 							alert('Game Over');
+	// 							createGrid(); // Memulai permainan baru
+	// 							hp = 3; // Reset nyawa
+	// 							$('#hp').text(hp); // Mengupdate tampilan nyawa
+	// 						}, 10);
+	// 					}
+	// 				}); //jika kotak memiliki bom maka akan diberi warna merah setelah di klik dan akan menampilkan alert
+	// 		}
+	// 	} else {
+	// 		$(this).addClass('when-clicked'); // Menambahkan class "when-clicked" untuk penanda ketika kotak di klik
+	// 	}
+	// });
 
 
 
@@ -162,7 +162,7 @@
 
 	const newArray2 = array.map(a => a * 2);
 
-	console.log(array);
+	console.log(`ini ${newArray2}`);
 
 	// for (let i = 0; i < array.length; i++) {
 	// 	if (array[i] > 4) {
@@ -204,16 +204,16 @@
 
 	// Tulis kode di bawah ini
 
-	let evenNumber = [];
+	// let evenNumber = [];
 
-	for (let i = 1; i < 100; i++) {
-		if (i % 2 === 0) {
-			evenNumber.push(i)
-			// console.log();
-		}
-	}
+	// for (let i = 1; i < 100; i++) {
+	// 	if (i % 2 === 0) {
+	// 		evenNumber.push(i)
+	// 		// console.log();
+	// 	}
+	// }
 
-	console.log(evenNumber);
+	// console.log(evenNumber);
 
 	// const c = [];
 	// c = [];
@@ -274,165 +274,169 @@
 	// $('#grid').handleBomb();
 
 
-	function handleGridItemClick() {
-		const ab = $(this);
-		const i = ab.data('row');
-		const j = ab.data('col');
-		const c = ab.data('bombLocations');
-		let hp = ab.data('hp');
+	// function handleGridItemClick() {
+	// 	const ab = $(this);
+	// 	const i = ab.data('row');
+	// 	const j = ab.data('col');
+	// 	const c = ab.data('bombLocations');
+	// 	let hp = ab.data('hp');
 
-		if (c.includes(i * 8 + j)) {
-			if (ab.hasClass('bomb-orange')) {
-				hp--;
-				ab
-					.removeClass('bomb-orange')
-					.addClass('bomb')
-					.delay(10)
-					.queue(function (next) {
-						alert('Boom! Kamu menemukan bom!');
-						next();
-					});
-				if (hp == 0) {
-					alert('Game Over');
-					new_board();
-					hp = 5;
-				}
-			}
-			$('#hp').text(hp);
-		} else {
-			ab.css('background-color', 'white');
-		}
-	}
+	// 	if (c.includes(i * 8 + j)) {
+	// 		if (ab.hasClass('bomb-orange')) {
+	// 			hp--;
+	// 			ab
+	// 				.removeClass('bomb-orange')
+	// 				.addClass('bomb')
+	// 				.delay(10)
+	// 				.queue(function (next) {
+	// 					alert('Boom! Kamu menemukan bom!');
+	// 					next();
+	// 				});
+	// 			if (hp == 0) {
+	// 				alert('Game Over');
+	// 				new_board();
+	// 				hp = 5;
+	// 			}
+	// 		}
+	// 		$('#hp').text(hp);
+	// 	} else {
+	// 		ab.css('background-color', 'white');
+	// 	}
+	// }
 
-	function createGrid(a, c, hp) {
-		// Create the grid
-		for (let i = 0; i < 8; i++) {
-			for (let j = 0; j < 8; j++) {
-				const ab = $('<div></div>').addClass('grid-item').data('row', i).data('col', j).data('bombLocations', c).data('hp', hp);
+	// function createGrid(a, c, hp) {
+	// 	// Create the grid
+	// 	for (let i = 0; i < 8; i++) {
+	// 		for (let j = 0; j < 8; j++) {
+	// 			const ab = $('<div></div>').addClass('grid-item').data('row', i).data('col', j).data('bombLocations', c).data('hp', hp);
 
-				if (c.includes(i * 8 + j)) {
-					ab.addClass('bomb-orange');
-				}
+	// 			if (c.includes(i * 8 + j)) {
+	// 				ab.addClass('bomb-orange');
+	// 			}
 
-				a.append(ab);
-			}
-		}
-	}
+	// 			a.append(ab);
+	// 		}
+	// 	}
+	// }
 
-	function new_board() {
-		const a = $('#grid'); // Menentukan grid yang akan menampung board
-		let b = 8; // Jumlah bom
-		let c = []; // Menyimpan lokasi bom secara acak
-		let hp = 5;
+	// function new_board() {
+	// 	const a = $('#grid'); // Menentukan grid yang akan menampung board
+	// 	let b = 8; // Jumlah bom
+	// 	let c = []; // Menyimpan lokasi bom secara acak
+	// 	let hp = 5;
 
-		// Reset the grid
-		a.empty();
+	// 	// Reset the grid
+	// 	a.empty();
 
-		// Reset the bomb locations
-		c = [];
+	// 	// Reset the bomb locations
+	// 	c = [];
 
-		// Generate new bomb locations
-		while (c.length < b) {
-			const r = Math.floor(Math.random() * 64); // 8x8 grid
-			if (!c.includes(r)) {
-				c.push(r);
-			}
-		}
+	// 	// Generate new bomb locations
+	// 	while (c.length < b) {
+	// 		const r = Math.floor(Math.random() * 64); // 8x8 grid
+	// 		if (!c.includes(r)) {
+	// 			c.push(r);
+	// 		}
+	// 	}
 
-		hp = 5;
-		$('#hp').text(hp);
+	// 	hp = 5;
+	// 	$('#hp').text(hp);
 
-		createGrid(a, c, hp);
-	}
+	// 	createGrid(a, c, hp);
+	// }
 
-	// Create the grid on page load
-	new_board();
+	// // Create the grid on page load
+	// new_board();
 
-	// Add click event listener to reset button
-	$('button').click(function () {
-		new_board();
-	});
+	// // Add click event listener to reset button
+	// $('button').click(function () {
+	// 	new_board();
+	// });
 
 
-	    < script type = "text/javascript" >
-	    	$(document).ready(function () {
-	    		const a = $('#grid');
-	    		const j = 8 * 8; // Jumlah row dan col
-	    		let b = 10; // Jumlah bom
-	    		let c = []; // Menyimpan lokasi bom secara acak
+	// $(document).ready(function () {
+	// 	const a = $('#grid');
+	// 	const j = 8 * 8; // Jumlah row dan col
+	// 	let b = 10; // Jumlah bom
+	// 	let c = []; // Menyimpan lokasi bom secara acak
 
-	    		let hp = 3;
-	    		$('#hp').text(hp);
+	// 	let hp = 3;
+	// 	$('#hp').text(hp);
 
-	    		function createGrid(a) {
-	    			for (let i = 0; i < j; i++) {
-	    				const ab = $('<div></div>').addClass('grid-item');
-	    				// if (c.includes(i)) {
-	    				//   // ab.addClass('bomb-marked') //jika kotak memiliki bom makan akan diberi mark
-	    				//   // console.log(i)
-	    				// }
-	    				a.append(ab);
-	    			}
-	    		}
+	// 	function createGrid(a) {
+	// 		for (let i = 0; i < j; i++) {
+	// 			const ab = $('<div></div>').addClass('grid-item');
+	// 			// if (c.includes(i)) {
+	// 			//   // ab.addClass('bomb-marked') //jika kotak memiliki bom makan akan diberi mark
+	// 			//   // console.log(i)
+	// 			// }
+	// 			a.append(ab);
+	// 		}
+	// 	}
 
-	    		function new_board() {
-	    			a.empty();
-	    			c = [];
-	    			while (c.length < b) {
-	    				const r = Math.floor(Math.random() * 64); // 8x8 grid
-	    				if (!c.includes(r)) {
-	    					c.push(r);
-	    				}
-	    			}
-	    			console.log(...c);
-	    			createGrid(a);
-	    		}
+	// 	function new_board() {
+	// 		a.empty();
+	// 		c = [];
+	// 		while (c.length < b) {
+	// 			const r = Math.floor(Math.random() * 64); // 8x8 grid
+	// 			if (!c.includes(r)) {
+	// 				c.push(r);
+	// 			}
+	// 		}
+	// 		console.log(...c);
+	// 		createGrid(a);
+	// 	}
 
-	    		function handle_click() {
-	    			const i = $(this).index();
-	    			console.log(i);
-	    			if (c.includes(i)) {
-	    				if (
-	    					$(this).hasClass('grid-item') ||
-	    					$(this).hasClass('bomb-marked')
-	    				) {
-	    					hp--;
-	    					$('#hp').text(hp);
-	    					$(this)
-	    						.removeClass('grid-item bomb-marked')
-	    						.addClass('bomb')
-	    						.delay(10)
-	    						.queue(function (next) {
-	    							// if (hp === 0) {
-	    							//   setTimeout(() => {
-	    							//     alert('Game Over');
-	    							//     new_board(); // Memulai permainan baru
-	    							//     hp = 3; // Reset nyawa
-	    							//     $('#hp').text(hp); // Mengupdate tampilan nyawa
-	    							//   }, 10);
-	    							// }
-	    							// alert('Boom! Kamu menemukan bom!');
-	    						}); //jika kotak memiliki bom maka akan diberi warna merah setelah di klik dan akan menampilkan alert
-	    				}
-	    			} else {
-	    				$(this).addClass('when-clicked'); // Menambahkan class "when-clicked" untuk penanda ketika kotak di klik
-	    			}
-	    		}
+	// 	function handle_click() {
+	// 		const i = $(this).index();
+	// 		console.log(i);
+	// 		if (c.includes(i)) {
+	// 			if (
+	// 				$(this).hasClass('grid-item') ||
+	// 				$(this).hasClass('bomb-marked')
+	// 			) {
+	// 				hp--;
+	// 				$('#hp').text(hp);
+	// 				$(this)
+	// 					.removeClass('grid-item bomb-marked')
+	// 					.addClass('bomb')
+	// 					.delay(10)
+	// 					.queue(function (next) {
+	// 						// if (hp === 0) {
+	// 						//   setTimeout(() => {
+	// 						//     alert('Game Over');
+	// 						//     new_board(); // Memulai permainan baru
+	// 						//     hp = 3; // Reset nyawa
+	// 						//     $('#hp').text(hp); // Mengupdate tampilan nyawa
+	// 						//   }, 10);
+	// 						// }
+	// 						// alert('Boom! Kamu menemukan bom!');
+	// 					}); //jika kotak memiliki bom maka akan diberi warna merah setelah di klik dan akan menampilkan alert
+	// 			}
+	// 		} else {
+	// 			$(this).addClass('when-clicked'); // Menambahkan class "when-clicked" untuk penanda ketika kotak di klik
+	// 		}
+	// 	}
 
-	    		// function show_bomb() {
-	    		//   $('.grid-item').each(function (i) {
-	    		//     if (c.includes(i)) {
-	    		//       console.log(i);
-	    		//       $(this).addClass('bomb-marked');
-	    		//     }
-	    		//   });
-	    		//   console.log(c);
-	    		// }
+	// 	// function show_bomb() {
+	// 	//   $('.grid-item').each(function (i) {
+	// 	//     if (c.includes(i)) {
+	// 	//       console.log(i);
+	// 	//       $(this).addClass('bomb-marked');
+	// 	//     }
+	// 	//   });
+	// 	//   console.log(c);
+	// 	// }
 
-	    		new_board();
+	// 	new_board();
 
-	    		$('#grid').on('click', '.grid-item', handle_click);
-	    		$('.new_board').click(new_board);
-	    		$('.show_bomb').click(show_bomb);
-	    	}); <
-	    /script>
+	// 	$('#grid').on('click', '.grid-item', handle_click);
+	// 	$('.new_board').click(new_board);
+	// 	$('.show_bomb').click(show_bomb);
+	// });
+
+
+	// let _2mj;
+
+	// _2mj = "ab";
+	// console.log(_2mj)
